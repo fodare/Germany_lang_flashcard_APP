@@ -23,10 +23,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>flashcard</ApplicationTitle>
+		<ApplicationTitle>Flashcard</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.flashcard</ApplicationId>
+		<ApplicationId>com.openops.flashcard</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
