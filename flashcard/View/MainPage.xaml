@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="flashcard.View.MainPage"
+             xmlns:viewmodel="clr-namespace:flashcard.ViewModel"
+             xmlns:model="clr-namespace:flashcard.Model"
+             x:DataType="viewmodel:MainPageViewModel"
+             Title="{Binding Title}">
+
+    <StackLayout>
+
+        <CarouselView
+            ItemsSource="{Binding Words}"
+            HeightRequest="600"
+            EmptyView="No words to render. Check app data is present!">
+
+            <CarouselView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <StackLayout>
+
+                        <Border
+                            StrokeThickness="5"
+                            Padding="20"
+                            WidthRequest="475"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <Grid RowDefinitions="*,*"
+                                  ColumnDefinitions="*,*"
+                                  RowSpacing="40">
+
+                                <StackLayout Grid.ColumnSpan="2">
+
+                                    <Label Text="German"
+                                           FontSize="40"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+
+                                    <Label Text="{Binding ForeignFormat}"
+                                           x:DataType="model:LanguageModel"
+                                           FontAttributes="Bold"
+                                           Margin="30"
+                                           FontSize="50"
+                                           HorizontalOptions="Center"/>
+
+                                    <Label Text="______________________________"
+                                           Margin="30"
+                                           HorizontalOptions="Center"/>
+
+                                    <Label Text="English"
+                                           FontSize="40"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+
+                                    <Label Text="{Binding EnglishFormat}"
+                                           x:DataType="model:LanguageModel"
+                                           FontAttributes="Bold"
+                                           Margin="30"
+                                           FontSize="30"
+                                           HorizontalOptions="Center"/>
+
+                                </StackLayout>
+
+                                <ImageButton x:DataType="viewmodel:MainPageViewModel"
+                                             Grid.Row="1"
+                                             Aspect="AspectFit"
+                                             Source="wrong.png"
+                                             HeightRequest="20"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=AddToWordsToLearnCommand}"
+                                             CommandParameter="{Binding .}"
+                                             IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=IsNotBusy}"/>
+
+                                <ImageButton x:DataType="viewmodel:MainPageViewModel"
+                                             Grid.Row="1"
+                                             Grid.Column="1"
+                                             Aspect="AspectFit"
+                                             Source="right.png"
+                                             HeightRequest="20"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=AddToWordsToLearnCommand}"
+                                             CommandParameter="{Binding .}"
+                                             IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=IsNotBusy}"/>
+                            </Grid>
+
+                        </Border>
+
+                    </StackLayout>
+
+                </DataTemplate>
+
+            </CarouselView.ItemTemplate>
+
+        </CarouselView>
+
+    </StackLayout>
+
+</ContentPage>

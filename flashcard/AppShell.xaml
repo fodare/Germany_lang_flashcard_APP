@@ -3,13 +3,14 @@
     x:Class="flashcard.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:flashcard"
-    Shell.FlyoutBehavior="Flyout"
-    Title="flashcard">
+    xmlns:view="clr-namespace:flashcard.View"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Language Flashcard">
 
     <ShellContent
+        Shell.NavBarIsVisible="true"
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate view:MainPage}"
+        Route="MainPage"/>
 
 </Shell>

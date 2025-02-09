@@ -1,9 +1,10 @@
-﻿namespace flashcard;
-
-public partial class AppShell : Shell
+﻿namespace flashcard
 {
-	public AppShell()
+	public partial class AppShell : Shell
 	{
-		InitializeComponent();
+		public AppShell()
+		{
+			InitializeComponent();
+		}
 	}
 }
