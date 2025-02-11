@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using flashcard.Model;
 using flashcard.Services;
@@ -43,26 +44,21 @@ namespace flashcard.ViewModel
             try
             {
                 IsBusy = true;
-                // Words?.Clear();
-                var knwonWordsList = await GetKnwonWords();
-                if (knwonWordsList != null)
+                var wordsToLearn = await GetKnwonWords();
+                if (wordsToLearn != null)
                 {
-                    ParseWordsList(knwonWordsList);
-                    Debug.WriteLine($"Initialized words from known words data file. Words count: {Words!.Count}");
+                    ParseWordsList(wordsToLearn);
                     IsBusy = false;
                     return;
                 }
                 var wordsList = await ReadWordsFromAppDataFile();
                 ParseWordsList(wordsList);
-                Debug.WriteLine($"Initialized words from original data file. Words count: {Words!.Count}");
                 IsBusy = false;
             }
             catch (FileNotFoundException exp)
             {
-                Debug.WriteLine($"Exception retriving words from file. Error message {exp.Message}");
                 var wordsList = await ReadWordsFromAppDataFile();
                 ParseWordsList(wordsList);
-                Debug.WriteLine($"Initialized words from original data file. Words count: {Words!.Count}");
                 IsBusy = false;
             }
         }
@@ -94,7 +90,9 @@ namespace flashcard.ViewModel
             {
                 IsBusy = true;
                 Debug.WriteLine($"Received {wordToLearn.ForeignFormat}, {wordToLearn.EnglishFormat}");
-                await Shell.Current.DisplayAlert("Info", $"{wordToLearn.ForeignFormat}, {wordToLearn.EnglishFormat}", "Ok");
+                await _languageService.AddToWordsToLearn(wordToLearn);
+                Words.Remove(wordToLearn);
+                Debug.WriteLine($"Words collection count: {Words.Count}");
                 IsBusy = false;
             }
             catch (System.Exception exp)
