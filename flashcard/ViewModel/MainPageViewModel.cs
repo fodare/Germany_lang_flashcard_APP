@@ -1,12 +1,8 @@
-using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using flashcard.Model;
 using flashcard.Services;
-using Java.Lang;
 
 namespace flashcard.ViewModel
 {

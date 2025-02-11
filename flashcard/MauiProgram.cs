@@ -1,5 +1,4 @@
-﻿using Android.App;
-using flashcard.Services;
+﻿using flashcard.Services;
 using flashcard.View;
 using flashcard.ViewModel;
 using Microsoft.Extensions.Logging;
