@@ -56,7 +56,8 @@
                                        FontSize="30"
                                        HorizontalOptions="Center"/>
 
-                                <VerticalStackLayout Spacing="10">
+                                <VerticalStackLayout Spacing="10"
+                                                     Margin="10,0">
 
                                     <Grid ColumnDefinitions="*,*"
                                           RowDefinitions="*"
