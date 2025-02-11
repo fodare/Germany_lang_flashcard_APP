@@ -39,7 +39,7 @@ namespace flashcard.Services
         public async Task<List<LanguageModel>> ReadKnownWords()
         {
             using StreamReader? streamReader = new(WordsToLearnDirectory);
-            string line;
+            string? line;
             while ((line = await streamReader.ReadLineAsync()!) != null)
             {
                 //Define pattern
