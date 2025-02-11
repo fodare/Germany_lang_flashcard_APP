@@ -16,7 +16,7 @@
 
             <CarouselView.ItemTemplate>
 
-                <DataTemplate>
+                <DataTemplate x:DataType="model:LanguageModel">
 
                     <StackLayout>
 
@@ -25,63 +25,66 @@
                             Padding="20"
                             WidthRequest="475"
                             HorizontalOptions="Center"
-                            VerticalOptions="Center">
+                            VerticalOptions="Center"
+                            Grid.ColumnSpan="2">
 
-                            <Grid RowDefinitions="*,*"
-                                  ColumnDefinitions="*,*"
-                                  RowSpacing="40">
+                            <StackLayout>
 
-                                <StackLayout Grid.ColumnSpan="2">
+                                <Label Text="German"
+                                       FontSize="40"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
 
-                                    <Label Text="German"
-                                           FontSize="40"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
+                                <Label Text="{Binding ForeignFormat}"
+                                       FontAttributes="Bold"
+                                       Margin="30"
+                                       FontSize="50"
+                                       HorizontalOptions="Center"/>
 
-                                    <Label Text="{Binding ForeignFormat}"
-                                           x:DataType="model:LanguageModel"
-                                           FontAttributes="Bold"
-                                           Margin="30"
-                                           FontSize="50"
-                                           HorizontalOptions="Center"/>
+                                <Label Text="______________________________"
+                                       Margin="30"
+                                       HorizontalOptions="Center"/>
 
-                                    <Label Text="______________________________"
-                                           Margin="30"
-                                           HorizontalOptions="Center"/>
+                                <Label Text="English"
+                                       FontSize="40"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
 
-                                    <Label Text="English"
-                                           FontSize="40"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
+                                <Label Text="{Binding EnglishFormat}"
+                                       FontAttributes="Bold"
+                                       Margin="30"
+                                       FontSize="30"
+                                       HorizontalOptions="Center"/>
 
-                                    <Label Text="{Binding EnglishFormat}"
-                                           x:DataType="model:LanguageModel"
-                                           FontAttributes="Bold"
-                                           Margin="30"
-                                           FontSize="30"
-                                           HorizontalOptions="Center"/>
+                                <VerticalStackLayout Spacing="10">
 
-                                </StackLayout>
+                                    <Grid ColumnDefinitions="*,*"
+                                          RowDefinitions="*"
+                                          ColumnSpacing="10">
 
-                                <ImageButton x:DataType="viewmodel:MainPageViewModel"
-                                             Grid.Row="1"
-                                             Aspect="AspectFit"
-                                             Source="wrong.png"
-                                             HeightRequest="20"
-                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=AddToWordsToLearnCommand}"
-                                             CommandParameter="{Binding .}"
-                                             IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=IsNotBusy}"/>
+                                        <ImageButton
+                                            Aspect="AspectFit"
+                                            Source="wrong.png"
+                                            HeightRequest="20"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=AddToWordsToLearnCommand}"
+                                            CommandParameter="{Binding}"
+                                            IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=IsNotBusy}"/>
 
-                                <ImageButton x:DataType="viewmodel:MainPageViewModel"
-                                             Grid.Row="1"
-                                             Grid.Column="1"
-                                             Aspect="AspectFit"
-                                             Source="right.png"
-                                             HeightRequest="20"
-                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=AddToWordsToLearnCommand}"
-                                             CommandParameter="{Binding .}"
-                                             IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=IsNotBusy}"/>
-                            </Grid>
+                                        <ImageButton
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Aspect="AspectFit"
+                                            Source="right.png"
+                                            HeightRequest="20"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=AddToWordsToLearnCommand}"
+                                            CommandParameter="{Binding}"
+                                            IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}},Path=IsNotBusy}"/>
+
+                                    </Grid>
+
+                                </VerticalStackLayout>
+
+                            </StackLayout>
 
                         </Border>
 
