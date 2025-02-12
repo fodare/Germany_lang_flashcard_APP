@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using flashcard.Model;
 using flashcard.Services;
@@ -12,12 +14,24 @@ namespace flashcard.ViewModel
 
         public ObservableCollection<LanguageModel> Words { get; } = new();
 
+        public Random random = new();
+
         public MainPageViewModel(LanguageService languageService)
         {
             _languageService = languageService;
             Title = "Language Flashcard";
             InitWordsList();
+            GetWordsAsync();
         }
+
+        [ObservableProperty]
+        public bool isVisible;
+
+        [ObservableProperty]
+        public string? foreignFormat;
+
+        [ObservableProperty]
+        public string? englishFormat;
 
         [RelayCommand]
         public async Task GetWordsAsync()
@@ -25,12 +39,31 @@ namespace flashcard.ViewModel
             if (IsBusy)
                 return;
             IsBusy = true;
-            for (int i = 0; i < 5; i++)
-            {
-                Debug.WriteLine($"Word: {Words[i].ForeignFormat}, {Words[i].EnglishFormat}");
-            }
-            await Shell.Current.DisplayAlert("Info", "Retrived words from file", "Ok");
+            await GetRandomWord();
+            await Task.Delay(3000);
+            IsVisible = true;
             IsBusy = false;
+        }
+
+        public async Task GetRandomWord()
+        {
+            if (Words.Count == 0)
+            {
+                var newWordsList = await ReadWordsFromAppDataFile();
+                ParseWordsList(newWordsList);
+            }
+
+            var randomWord = Words.ElementAt(random.Next(0, Words.Count));
+            ForeignFormat = randomWord.ForeignFormat;
+            EnglishFormat = randomWord.EnglishFormat;
+        }
+
+        public async Task NextCard()
+        {
+            await GetRandomWord();
+            IsVisible = false;
+            await Task.Delay(3000);
+            IsVisible = true;
         }
 
         public async Task InitWordsList()
@@ -40,7 +73,7 @@ namespace flashcard.ViewModel
             try
             {
                 IsBusy = true;
-                var wordsToLearn = await GetKnwonWords();
+                var wordsToLearn = await GetWordsToLearn();
                 if (wordsToLearn != null)
                 {
                     ParseWordsList(wordsToLearn);
@@ -51,7 +84,7 @@ namespace flashcard.ViewModel
                 ParseWordsList(wordsList);
                 IsBusy = false;
             }
-            catch (FileNotFoundException exp)
+            catch (FileNotFoundException)
             {
                 var wordsList = await ReadWordsFromAppDataFile();
                 ParseWordsList(wordsList);
@@ -59,9 +92,9 @@ namespace flashcard.ViewModel
             }
         }
 
-        public async Task<List<LanguageModel>> GetKnwonWords()
+        public async Task<List<LanguageModel>> GetWordsToLearn()
         {
-            return await _languageService.ReadKnownWords();
+            return await _languageService.ReadWordsToLearn();
         }
 
         public async Task<List<LanguageModel>> ReadWordsFromAppDataFile()
@@ -78,17 +111,18 @@ namespace flashcard.ViewModel
         }
 
         [RelayCommand]
-        public async Task AddToWordsToLearnAsync(LanguageModel wordToLearn)
+        public async Task AddToWordsToLearnAsync()
         {
             if (IsBusy)
                 return;
             try
             {
                 IsBusy = true;
-                Debug.WriteLine($"Received {wordToLearn.ForeignFormat}, {wordToLearn.EnglishFormat}");
-                await _languageService.AddToWordsToLearn(wordToLearn);
-                Words.Remove(wordToLearn);
-                Debug.WriteLine($"Words collection count: {Words.Count}");
+                Debug.WriteLine($"{ForeignFormat},{EnglishFormat}");
+                //await _languageService.AddToWordsToLearn(wordToLearn);
+                //Words.Remove(wordToLearn);
+                await NextCard();
+                //Debug.WriteLine($"Words collection count: {Words.Count}");
                 IsBusy = false;
             }
             catch (System.Exception exp)

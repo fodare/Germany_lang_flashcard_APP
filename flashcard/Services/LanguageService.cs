@@ -5,8 +5,8 @@ namespace flashcard.Services
 {
     public class LanguageService
     {
-        private static string appDirectory = FileSystem.Current.AppDataDirectory;
-        private static string WordsToLearnDirectory = System.IO.Path.Combine(appDirectory, "wordsToLearn.csv");
+        private static readonly string appDirectory = FileSystem.Current.AppDataDirectory;
+        private static readonly string WordsToLearnDirectory = System.IO.Path.Combine(appDirectory, "wordsToLearn.csv");
 
         private readonly List<LanguageModel> Words = new();
 
@@ -27,15 +27,7 @@ namespace flashcard.Services
             return Words!;
         }
 
-        public async Task AddToWordsToLearn(LanguageModel newWord)
-        {
-            using StreamWriter streamWriter = new(WordsToLearnDirectory);
-            var newLine = string.Format("{0},{1}", newWord.ForeignFormat, newWord.EnglishFormat);
-            await streamWriter.WriteLineAsync(newLine);
-            streamWriter.Flush();
-        }
-
-        public async Task<List<LanguageModel>> ReadKnownWords()
+        public async Task<List<LanguageModel>> ReadWordsToLearn()
         {
             using StreamReader? streamReader = new(WordsToLearnDirectory);
             string? line;
@@ -48,6 +40,14 @@ namespace flashcard.Services
                 Words?.Add(new LanguageModel { ForeignFormat = parsedRow[0], EnglishFormat = parsedRow[1] });
             }
             return Words;
+        }
+
+        public async Task AddToWordsToLearn(LanguageModel newWord)
+        {
+            using StreamWriter streamWriter = new(WordsToLearnDirectory);
+            var newLine = string.Format("{0},{1}", newWord.ForeignFormat, newWord.EnglishFormat);
+            await streamWriter.WriteLineAsync(newLine);
+            streamWriter.Flush();
         }
     }
 }
