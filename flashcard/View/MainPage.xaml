@@ -26,7 +26,7 @@
                        HorizontalOptions="Center"
                        VerticalOptions="Center"/>
 
-                <Label Text="{Binding ForeignFormat}"
+                <Label Text="{Binding ForeignWord}"
                        FontAttributes="Bold"
                        Margin="30"
                        FontSize="50"
@@ -41,7 +41,7 @@
                        HorizontalOptions="Center"
                        VerticalOptions="Center"/>
 
-                <Label Text="{Binding EnglishFormat}"
+                <Label Text="{Binding EnglishWord}"
                        IsVisible="{Binding IsVisible}"
                        FontAttributes="Bold"
                        Margin="30"
@@ -68,7 +68,7 @@
                             Aspect="AspectFit"
                             Source="right.png"
                             HeightRequest="20"
-                            Command="{Binding AddToWordsToLearnCommand}"
+                            Command="{Binding KnownWordCommand}"
                             IsEnabled="{Binding IsNotBusy}"/>
 
                     </Grid>
