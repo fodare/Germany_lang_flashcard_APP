@@ -18,7 +18,7 @@ namespace flashcard.ViewModel
         {
             _languageService = languageService;
             Title = "Language Flashcard";
-            InitWordsList();
+            InitWordsListAsync();
         }
 
         [ObservableProperty]
@@ -58,7 +58,7 @@ namespace flashcard.ViewModel
             IsVisible = true;
         }
 
-        public async Task InitWordsList()
+        public async Task InitWordsListAsync()
         {
             if (IsBusy)
                 return;
@@ -101,7 +101,7 @@ namespace flashcard.ViewModel
         {
             Words?.Clear();
             foreach (var word in wordsList)
-                Words.Add(word);
+                Words!.Add(word);
         }
 
         public void RemoveWord(string? foreign)
