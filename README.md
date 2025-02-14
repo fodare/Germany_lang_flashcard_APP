@@ -2,7 +2,7 @@
 
 # Germany_lang_flashcard_APP
 
-An andriod flash card app to help learn german.
+An android flash card app to help learn german.
 
 # ⚙️ How it works
 
