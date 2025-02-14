@@ -1,10 +1,10 @@
-![Andriod sample view](sampleview.png)
-
 # Germany_lang_flashcard_APP
+
+![Andriod sample view](sampleview.png)
 
 An android flash card app to help learn german.
 
-# ⚙️ How it works
+## ⚙️ How it works
 
 - Random German word is selected from a language file.
 - User has 3 seconds to guess the english meaning of the word before the card is flip to the English version.
