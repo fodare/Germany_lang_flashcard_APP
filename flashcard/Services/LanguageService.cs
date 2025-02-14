@@ -1,8 +1,6 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using Android.Media;
 using flashcard.Model;
-using Javax.Crypto.Spec;
 
 namespace flashcard.Services
 {
