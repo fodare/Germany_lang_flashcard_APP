@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="flashcard.View.MainPage"
+             xmlns:viewmodel="clr-namespace:flashcard.ViewModel"
+             xmlns:model="clr-namespace:flashcard.Model"
+             x:DataType="viewmodel:MainPageViewModel"
+             Title="{Binding Title}">
+
+    <StackLayout HorizontalOptions="Fill"
+                 VerticalOptions="Fill">
+
+        <Border
+            StrokeThickness="0"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Padding="20"
+            Margin="0,100">
+
+            <StackLayout>
+
+                <ActivityIndicator HorizontalOptions="Center"
+                                   IsRunning="{Binding IsBusy}"/>
+                <Label Text="German"
+                       FontSize="40"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+
+                <Label Text="{Binding ForeignWord}"
+                       FontAttributes="Bold"
+                       Margin="30"
+                       FontSize="50"
+                       HorizontalOptions="Center"/>
+
+                <Label Text="______________________________"
+                       Margin="30"
+                       HorizontalOptions="Center"/>
+
+                <Label Text="English"
+                       FontSize="40"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+
+                <Label Text="{Binding EnglishWord}"
+                       IsVisible="{Binding IsVisible}"
+                       FontAttributes="Bold"
+                       Margin="30"
+                       FontSize="30"
+                       HorizontalOptions="Center"/>
+
+                <VerticalStackLayout Spacing="10"
+                                     Margin="0,50">
+
+                    <Grid ColumnDefinitions="*,*"
+                          RowDefinitions="*"
+                          ColumnSpacing="10">
+
+                        <ImageButton
+                            Aspect="AspectFit"
+                            Source="wrong.png"
+                            HeightRequest="20"
+                            Command="{Binding AddToWordsToLearnCommand}"
+                            IsEnabled="{Binding IsNotBusy}"/>
+
+                        <ImageButton
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Aspect="AspectFit"
+                            Source="right.png"
+                            HeightRequest="20"
+                            Command="{Binding KnownWordCommand}"
+                            IsEnabled="{Binding IsNotBusy}"/>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </StackLayout>
+
+        </Border>
+
+    </StackLayout>
+
+</ContentPage>
