@@ -8,13 +8,13 @@ namespace flashcard.ViewModel
 {
     public partial class MainPageViewModel : BaseViewModel
     {
-        readonly LanguageService _languageService;
+        private readonly ILanguageService _languageService;
 
         public List<LanguageModel> Words = new();
 
         public Random random = new();
 
-        public MainPageViewModel(LanguageService languageService)
+        public MainPageViewModel(ILanguageService languageService)
         {
             _languageService = languageService;
             Title = "Language Flashcard";

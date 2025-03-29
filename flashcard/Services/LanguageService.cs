@@ -4,7 +4,7 @@ using flashcard.Model;
 
 namespace flashcard.Services
 {
-    public class LanguageService
+    public class LanguageService : ILanguageService
     {
         private static readonly string appDirectory = FileSystem.Current.AppDataDirectory;
         private static readonly string WordsToLearnDirectory = System.IO.Path.Combine(appDirectory, "wordsToLearn.csv");
